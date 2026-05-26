@@ -1,4 +1,5 @@
 import 'package:e_commerce_app/controller/cartprovider.dart';
+import 'package:e_commerce_app/view/buy_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -36,7 +37,11 @@ class _MycartscreenState extends State<Mycartscreen> {
           ? Center(
               child: Text(
                 "No books in cart",
-                style: TextStyle(color: offWhite),
+                textAlign: .center,
+                      style: TextStyle(
+                        color: const Color.fromARGB(255, 80, 80, 80),
+                        fontSize: 25,
+                      ),
               ),
             )
           : Column(
@@ -130,8 +135,18 @@ class _MycartscreenState extends State<Mycartscreen> {
                           borderRadius: BorderRadiusGeometry.circular(5),
                         ),
                       ),
-                      onPressed: () {},
-                      child: Text("Buy Now", style: TextStyle(color: darkSurface)),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Mybuyscreen(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        "Buy Now",
+                        style: TextStyle(color: darkSurface),
+                      ),
                     ),
                   ),
                 ),

@@ -40,7 +40,11 @@ class _myWishlistScreenState extends State<myWishlistScreen> {
           ? Center(
               child: Text(
                 "No Wishlist items",
-                style: TextStyle(color: Colors.white, fontSize: 18),
+                textAlign: .center,
+                style: TextStyle(
+                  color: const Color.fromARGB(255, 80, 80, 80),
+                  fontSize: 25,
+                ),
               ),
             )
           : ListView.builder(

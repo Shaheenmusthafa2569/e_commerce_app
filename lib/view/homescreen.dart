@@ -31,7 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
         automaticallyImplyLeading: false,
         backgroundColor: const Color(0xFF000000),
         title: const Text(
-          "E-Commerce App",
+          "The Quiet Shelf",
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,

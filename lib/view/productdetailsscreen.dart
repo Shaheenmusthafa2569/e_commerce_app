@@ -1,4 +1,6 @@
 import 'package:e_commerce_app/controller/cartprovider.dart';
+import 'package:e_commerce_app/controller/wishlistprovider.dart';
+import 'package:e_commerce_app/items.dart';
 import 'package:e_commerce_app/model/product_model.dart';
 import 'package:e_commerce_app/view/homescreen.dart';
 import 'package:e_commerce_app/view/navbar.dart';
@@ -26,7 +28,12 @@ class _ProductdetailsscreenState extends State<Productdetailsscreen> {
     ); // Lighter Amber for highlights
     const Color offWhite = Color(0xFFF8F9FA); // Easy-on-the-eyes text
     const Color darkSurface = Color(0xFF1E1E1E); // Elevated Card Grey
+    final cartlist = context.read<Cartprovider>();
 
+    final wishlistprovider = context.watch<Wishlistprovider>();
+    final item = widget.product;
+
+    final isWishlisted = wishlistprovider.wishlistItems.contains(item);
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -112,7 +119,16 @@ class _ProductdetailsscreenState extends State<Productdetailsscreen> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        cartlist.addToCart(item);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              "Added ${widget.product.name} to the Cart",
+                            ),
+                          ),
+                        );
+                      },
                       child: const Text(
                         "Add to Cart",
                         style: TextStyle(
@@ -126,12 +142,31 @@ class _ProductdetailsscreenState extends State<Productdetailsscreen> {
                   IconButton(
                     constraints: const BoxConstraints(),
                     padding: EdgeInsets.zero,
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.favorite_border,
-                      color: primaryOrange,
-                      size: 28,
-                    ),
+                    onPressed: () {
+                      wishlistprovider.toggleWishlist(item);
+                      isWishlisted
+                          ? ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  "Added ${widget.product.name} to the Wishlist",
+                                ),
+                              ),
+                            )
+                          : ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  "removed ${widget.product.name} from the Wishlist",
+                                ),
+                              ),
+                            );
+                    },
+                    icon: isWishlisted
+                        ? Icon(Icons.favorite, color: primaryOrange, size: 28)
+                        : Icon(
+                            Icons.favorite_border,
+                            color: primaryOrange,
+                            size: 28,
+                          ),
                   ),
                 ],
               ),
