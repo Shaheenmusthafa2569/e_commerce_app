@@ -12,4 +12,6 @@ class Wishlistprovider extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+
 }
